@@ -3,9 +3,12 @@ class CheckAuth extends MyCommand{
     public $SID;
    function __construct($sid=null){
        parent::__construct();
-       //public static $SID
        $this->SID=$sid;
    }  
+
+    public static function con($obj){
+        return new CheckAuth($obj);
+    }
 
    function email(){
        $q='SELECT `email` FROM `user` WHERE `username`="'.$this->SID.'"';
@@ -18,5 +21,10 @@ class CheckAuth extends MyCommand{
 <?php
 
 $usr=new CheckAuth($_SESSION['login_info']['username']);
-<?= $usr->email() ?>
 ?>
+<?= $usr->email() ?>
+
+
+<!--/////OR////-->
+
+<?= CheckAuth::con($_SESSION['login_info']['username'])->email() ?>
